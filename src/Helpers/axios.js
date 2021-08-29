@@ -1,5 +1,5 @@
 import axios from 'axios';
-const baseUrl = "http://localhost:2000/api";
+const baseUrl = "http://3.108.193.247:2000/api";
 const token = window.localStorage.getItem('token');
 
 const axiosIntance = axios.create({

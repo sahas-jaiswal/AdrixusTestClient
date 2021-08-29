@@ -1,34 +1,35 @@
 import React, {useEffect, useState} from 'react';
-import { Table } from 'react-bootstrap'
+import { Spinner, Table } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux';
-import { getAllUsers } from '../Actions/user.action';
-import { Redirect } from 'react-router-dom';
+import { getAllUsers } from '../Actions/list.action';
+import { Redirect, history, useHistory } from 'react-router-dom';
 import NavBar from '../Component/NavigationBar';
+import { getDefaultNormalizer } from '@testing-library/react';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const user = useSelector(state => state.user);
+    const lists = useSelector(state => state.list);
     const token = window.localStorage.getItem('token');
     const [search, setSearch] =  useState('')
     const [currentPage, setCurrentPage] =  useState('1')
     const [dataPerPage] =  useState('5')
     let data =[];
 
-    useEffect(() => {
-        if(!user.loading)
-       dispatch(getAllUsers());
-    }, [])
-
+   useEffect(()=>{
+    dispatch(getAllUsers());
+   },[])
     
-
+    if(lists.laoding){
+        return <Spinner />
+    }
     if(!token){
         return <Redirect to={'/'}/>;
     }
    if(search){
-       let list = user.users;
+       let list = lists.users;
        data = list.filter(data=>data.firstName.toLowerCase().includes(search.toLowerCase()))
    }else{
-       data = user.users
+       data = lists.users
    }
 
    const indexOfLastPost = currentPage * dataPerPage;
@@ -42,12 +43,13 @@ const Home = () => {
      pageNumbers.push(i);
    } 
    const handleClick = (e) => {
-      setCurrentPage(e.target.id)
-    
+      setCurrentPage(e.target.id);
   }
+  
 
     return (
         <>
+
         <NavBar/>
             <input className='Search' 
             placeholder="Search with first name..." 

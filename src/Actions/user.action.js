@@ -32,7 +32,7 @@ export const login = (user) => {
     }
 };
 
-export const isUserLoggedIn = () => {
+/*export const isUserLoggedIn = () => {
     return async dispatch => {
         const token = localStorage.getItem('token');
         if (token) {
@@ -43,14 +43,14 @@ export const isUserLoggedIn = () => {
                     token, user
                 }
             });
-        } {/*else {
+        } else {
             dispatch({
                 type: userConstants.LOGIN_FAILURE,
                 payload: { error: 'Failed to login' }
             });
-        }*/}
+        }
     }
-};
+};*/
 
 export const signup = (user) => {
 
@@ -77,21 +77,3 @@ export const signup = (user) => {
     }
 };
 
-export const getAllUsers = () => {
-    return async dispatch => {
-
-        dispatch({ type: userConstants.GET_ALL_USERS_REQUEST });
-        await axios.get(`/getUsers`).then(res => {
-            dispatch({
-                type: userConstants.GET_ALL_USERS_SUCCESS,
-                payload: { users: res.data.user , message:res.data.message}
-            });
-        }).catch(err => {
-            dispatch({
-                type: userConstants.GET_ALL_USERS_FAILURE,
-                payload:  { error: err.data},
-            });
-        })
-       
-    }
-};

@@ -1,18 +1,24 @@
 import React from 'react';
 import {  Navbar, Nav, Button} from 'react-bootstrap';
-import { useHistory } from 'react-router-dom'
+import { useHistory,Link, Redirect } from 'react-router-dom'
 
-const NavigationBar = () => {
+const NavigationBar = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
+  const token = window.localStorage.getItem('token');
   const history = useHistory();
-  console.log(user)
+  
+
   const capitalizeFirstLetter = (string) =>{
   return string.charAt(0).toUpperCase() + string.slice(1);
   }
-  
+
+  if(!token){
+    history.push('/');
+  }
   const logout = () =>{
     window.localStorage.clear();
     history.push('/');
+   
 }
     return (
         <Navbar bg="dark" expand="lg" style={{width:"100%"}}>
