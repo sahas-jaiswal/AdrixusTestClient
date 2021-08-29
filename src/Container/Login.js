@@ -14,7 +14,11 @@ const Login = (props) => {
     
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-   
+    const [passwordShow, setPasswordShow] = useState(false);
+
+    const togglePasswordVisiblity = () => {
+        setPasswordShow(passwordShow ? false : true);
+      };
     useEffect(()=>{
         if(!user.loading){
             setEmail('');
@@ -75,11 +79,11 @@ const Login = (props) => {
                                         />
                                     </div>
                                     <div className="form-group">
-                                    <input type="password" className="form-control"
+                                    <input type={passwordShow?"text":"password"} className="form-control"
                                     placeholder="Password"
                                     value={password}
                                     onChange={(e) => setPassword(e.target.value)}
-                                    />
+                                    /> <i style={{color:"white"}} onClick={togglePasswordVisiblity} className="fa fa-eye"/>
                                   </div>
 
                                     <div className="col-lg-12 loginbttm">

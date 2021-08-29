@@ -16,11 +16,12 @@ const Home = () => {
     let data =[];
 
    useEffect(()=>{
+       if(!lists.laoding)
     dispatch(getAllUsers());
-   },[])
+   },[lists.laoding])
     
     if(lists.laoding){
-        return <Spinner />
+        return <Spinner animation="grow" variant="info"/>
     }
     if(!token){
         return <Redirect to={'/'}/>;

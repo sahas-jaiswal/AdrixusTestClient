@@ -1,24 +1,25 @@
 import React from 'react';
 import {  Navbar, Nav, Button} from 'react-bootstrap';
-import { useHistory,Link, Redirect } from 'react-router-dom'
+import { useDispatch } from 'react-redux';
+import { useHistory,Link, Redirect } from 'react-router-dom';
+import { signout } from '../Actions/user.action'
 
 const NavigationBar = (props) => {
   const user = JSON.parse(localStorage.getItem("user"));
   const token = window.localStorage.getItem('token');
   const history = useHistory();
-  
+  const dispatch = useDispatch();
 
   const capitalizeFirstLetter = (string) =>{
   return string.charAt(0).toUpperCase() + string.slice(1);
   }
 
   if(!token){
-    history.push('/');
+    return <Redirect to={'/'}/>;
   }
   const logout = () =>{
-    window.localStorage.clear();
-    history.push('/');
-   
+    dispatch(signout());
+   history.push('/');
 }
     return (
         <Navbar bg="dark" expand="lg" style={{width:"100%"}}>

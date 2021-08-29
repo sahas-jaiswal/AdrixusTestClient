@@ -67,26 +67,24 @@ export default (state = initState, action) => {
                 message: action.payload.message
             }
             break;
-        case userConstants.GET_ALL_USERS_REQUEST:
-            state = {
-                ...state,
-                loading:true,
-            }
-            break;
-        case userConstants.GET_ALL_USERS_SUCCESS:
-            state = {
-                ...state,
-                users: action.payload.users,
-                loading:false,
-            }
-            break;
-        case userConstants.GET_ALL_USERS_FAILURE:
-            state = {
-                ...state,
-                error: action.payload.error,
-                loading:false,
-            }
-            break;
+            case userConstants.LOGOUT_REQUEST:
+                state = {
+                    ...state,
+                    loading: true
+                }
+                break;
+            case userConstants.LOGOUT_SUCCESS:
+                state = {
+                    ...initState
+                }
+                break;
+            case userConstants.LOGOUT_FAILURE:
+                state = {
+                    ...state,
+                    error: action.payload.error,
+                    loading: false,
+                }
+                break;
 
     }
 
